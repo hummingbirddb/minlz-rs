@@ -173,7 +173,7 @@ fn encode_block_big(dst: &mut [u8], src: &[u8]) -> usize {
         if next_emit != base {
             let lit_count = base - next_emit;
             if lit_count > MAX_COPY3_LITS || repeat < MIN_COPY2_OFFSET {
-                if d + (s - next_emit) > dst_limit {
+                if d + (base - next_emit) > dst_limit {
                     return 0;
                 }
                 d += emit_literal(&mut dst[d..], &src[next_emit..base]);
@@ -353,7 +353,7 @@ fn encode_block_64k(dst: &mut [u8], src: &[u8]) -> usize {
         if next_emit != base {
             let lit_count = base - next_emit;
             if lit_count > MAX_COPY2_LITS || repeat < MIN_COPY2_OFFSET {
-                if d + (s - next_emit) > dst_limit {
+                if d + (base - next_emit) > dst_limit {
                     return 0;
                 }
                 d += emit_literal(&mut dst[d..], &src[next_emit..base]);
